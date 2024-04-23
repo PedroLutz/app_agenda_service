@@ -123,7 +123,6 @@ const SignInUsuario = () => {
               </div>
               <div className="col">
                 <input type="text" 
-                style={{marginTop: '5px'}}
                     className="form-control" 
                     id="telefone" 
                     name="telefone" 
