@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
 delete mongoose.connection.models['Endereco'];
@@ -10,7 +11,10 @@ const EnderecoSchema = new mongoose.Schema({
     num: String,
     complemento: String,
     cep: String,
-    marcador: String
+    marcador: String,
+    usuarioId: ObjectId
 }, { collection: 'enderecos' });
 
-export default mongoose.models['Endereco'] || mongoose.model('Endereco', EnderecoSchema);
+const Endereco = mongoose.models['Endereco'] || mongoose.model('Endereco', EnderecoSchema); 
+
+export default { Endereco , EnderecoSchema };

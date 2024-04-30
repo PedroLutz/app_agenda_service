@@ -1,5 +1,7 @@
 import connectToDatabase from '../../../lib/db';
-import Telefone from '../../../models/Telefone';
+import TelefoneModel from '../../../models/Telefone';
+
+const { Telefone } = TelefoneModel;
 
 export default async (req, res) => {
   try {
@@ -10,9 +12,9 @@ export default async (req, res) => {
         return res.status(400).json({ error: 'O ID do telefone não foi fornecido' });
       }
 
-      const deletedTelefone = await Telefone.findByIdAndDelete(req.query.id);
+      const deletedData = await Telefone.findByIdAndDelete(req.query.id);
 
-      if (!deletedTelefone) {
+      if (!deletedData) {
         return res.status(404).json({ error: 'Telefone não encontrado' });
       }
 

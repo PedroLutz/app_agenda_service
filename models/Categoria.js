@@ -7,4 +7,6 @@ const CategoriaSchema = new mongoose.Schema({
     descricao: String,
 }, { collection: 'categorias' });
 
-export default mongoose.models['Categoria'] || mongoose.model('Categoria', CategoriaSchema);
+const Categoria = mongoose.models['Categoria'] || mongoose.model('Categoria', CategoriaSchema);
+
+export default {Categoria, CategoriaSchema};

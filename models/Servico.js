@@ -1,13 +1,15 @@
 import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
-delete mongoose.connection.models['Usuario'];
+delete mongoose.connection.models['Servico'];
 
-const UsuarioSchema = new mongoose.Schema({
+const ServicoSchema = new mongoose.Schema({
     descricao: String,
     categoria_id: ObjectId,
     prestador_id: ObjectId,
     dados_extra: String,
-}, { collection: 'usuarios' });
+}, { collection: 'servicos' });
 
-export default mongoose.models['Usuario'] || mongoose.model('Usuario', UsuarioSchema);
+const Servico = mongoose.models['Servico'] || mongoose.model('Servico', ServicoSchema); 
+ 
+export default { Servico, ServicoSchema };

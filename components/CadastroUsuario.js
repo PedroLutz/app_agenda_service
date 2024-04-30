@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import Link from 'next/link';
+import { handleSubmit } from '../functions/crud';
+import { handleChange } from '../functions/global';
 
 const SignInUsuario = () => {
   const [dados, setDados] = useState({
@@ -8,13 +10,10 @@ const SignInUsuario = () => {
     senha: '',
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setDados({
-      ...dados,
-      [name]: value,
-    });
-  };
+  const enviarDados = async(e) => {
+    e.preventDefault();
+    await handleSubmit(`usuario`, dados);
+  }
 
     return (
         <div style={{
@@ -25,7 +24,7 @@ const SignInUsuario = () => {
         textAlign: 'center', 
         height: '100vh',
         }}>
-            <form style={{width: '300px'}}>
+            <form style={{width: '300px'}} onSubmit={(e) => enviarDados(e)}>
               <div className="mb-3">
               <h1 class="h3 mb-3 font-weight-normal">Faça seu cadastro</h1>
                 
@@ -36,7 +35,7 @@ const SignInUsuario = () => {
                   id="nome" 
                   name="nome" 
                   placeholder="Nome"
-                  onChange={handleChange} 
+                  onChange={(e) => handleChange(e, setDados, dados)} 
                   value={dados.nome}/>
               <label htmlFor="email" className="sr-only">Nome</label>
               <input type="text" 
@@ -45,7 +44,7 @@ const SignInUsuario = () => {
                   id="email" 
                   name="email" 
                   placeholder="Email"
-                  onChange={handleChange} 
+                  onChange={(e) => handleChange(e, setDados, dados)} 
                   value={dados.email}/>
                   <label htmlFor="senha" className="sr-only">Senha</label>
               <input type="password" 
@@ -54,7 +53,7 @@ const SignInUsuario = () => {
                   id="senha" 
                   name="senha" 
                   placeholder="Senha"
-                  onChange={handleChange} 
+                  onChange={(e) => handleChange(e, setDados, dados)} 
                   value={dados.senha}/>
               <div style={{
                 marginTop: '15px',

@@ -1,5 +1,7 @@
 import connectToDatabase from '../../../lib/db';
-import Telefone from '../../../models/Telefone';
+import TelefoneModel from '../../../models/Telefone';
+
+const { Telefone } = TelefoneModel;
 
 export default async (req, res) => {
   try {

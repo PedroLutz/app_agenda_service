@@ -8,6 +8,9 @@ const AgendamentoSchema = new mongoose.Schema({
     servico_id: ObjectId,
     data_inicio: Date,
     data_fim: Date,
+    status: String
 }, { collection: 'agendamentos' });
 
-export default mongoose.models['Agendamento'] || mongoose.model('Agendamento', AgendamentoSchema);
+const Agendamento = mongoose.models['Agendamento'] || mongoose.model('Agendamento', AgendamentoSchema);
+
+export default {Agendamento, AgendamentoSchema};

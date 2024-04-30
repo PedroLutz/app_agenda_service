@@ -1,5 +1,7 @@
 import connectToDatabase from '../../../lib/db';
-import Usuario from '../../../models/Usuario';
+import UsuarioModel from '../../../models/Usuario';
+
+const { Usuario, UsuarioSchema } = UsuarioModel;
 
 export default async (req, res) => {
   try {
@@ -12,24 +14,30 @@ export default async (req, res) => {
         return res.status(400).json({ error: 'O ID do usuário é obrigatório para a atualização.' });
       }
 
-      const { nome, email, senha } = req.body; 
-
+      const propriedadesNomes = Object.keys(UsuarioSchema.paths);
       const updateFields = {};
-      if (nome) updateFields.nome = nome;
-      if (email) updateFields.email = email;
-      if (senha) updateFields.senha = senha;
+      
+      for (const key in req.body) {
+        if (req.body[key]) {
+          if (propriedadesNomes.includes(key)) {
+            updateFields[key] = req.body[key];
+          } else {
+            return res.status(400).json({ error: 'Os campos fornecidos não são compatíveis com o do modelo!' });
+          }
+        }
+      }
 
       if (Object.keys(updateFields).length === 0) {
         return res.status(400).json({ error: 'Pelo menos um campo deve ser fornecido para a atualização.' });
       }
 
-      const updatedUsuario = await Usuario.findByIdAndUpdate(id, updateFields, { new: true });
+      const updatedData = await Usuario.findByIdAndUpdate(id, updateFields, { new: true });
 
-      if (!updatedUsuario) {
+      if (!updatedData) {
         return res.status(404).json({ error: 'Usuário não encontrado.' });
       }
 
-      return res.status(200).json(updatedUsuario);
+      return res.status(200).json(updatedData);
     } else {
       res.status(405).json({ error: 'Método não permitido' });
     }

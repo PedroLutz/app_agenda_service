@@ -7,9 +7,9 @@ const PrestadorSchema = new mongoose.Schema({
   usuario_id: ObjectId,
   cpf: String,
   cnpj: String,
-  endereco_id: ObjectId,
-  telefone_id: ObjectId,
   metodo_pagamento: String
 }, { collection: 'prestadores' }); 
 
-export default mongoose.models['Prestador'] || mongoose.model('Prestador', PrestadorSchema);
+const Prestador =  mongoose.models['Prestador'] || mongoose.model('Prestador', PrestadorSchema);
+
+export default { Prestador , PrestadorSchema};

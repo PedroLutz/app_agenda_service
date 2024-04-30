@@ -1,5 +1,7 @@
 import connectToDatabase from '../../../lib/db';
-import Usuario from '../../../models/Usuario';
+import UsuarioModel from '../../../models/Usuario';
+
+const { Usuario, UsuarioSchema } = UsuarioModel;
 
 export default async (req, res) => {
   try {
@@ -10,9 +12,9 @@ export default async (req, res) => {
         return res.status(400).json({ error: 'O ID do usuário não foi fornecido' });
       }
 
-      const deletedUsuario = await Usuario.findByIdAndDelete(req.query.id);
+      const deletedData = await Usuario.findByIdAndDelete(req.query.id);
 
-      if (!deletedUsuario) {
+      if (!deletedData) {
         return res.status(404).json({ error: 'Usuário não encontrado' });
       }
 

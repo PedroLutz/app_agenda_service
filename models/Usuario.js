@@ -8,4 +8,6 @@ const UsuarioSchema = new mongoose.Schema({
     senha: String,
 }, { collection: 'usuarios' });
 
-export default mongoose.models['Usuario'] || mongoose.model('Usuario', UsuarioSchema);
+const Usuario = mongoose.models['Usuario'] || mongoose.model('Usuario', UsuarioSchema);
+
+export default { Usuario, UsuarioSchema };

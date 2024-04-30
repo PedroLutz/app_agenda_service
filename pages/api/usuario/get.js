@@ -1,5 +1,7 @@
 import connectToDatabase from '../../../lib/db';
-import Usuario from '../../../models/Usuario';
+import UsuarioModel from '../../../models/Usuario';
+
+const { Usuario } = UsuarioModel;
 
 export default async (req, res) => {
   try {
@@ -13,7 +15,7 @@ export default async (req, res) => {
       res.status(405).json({ error: 'Método não permitido' });
     }
   } catch (error) {
-    console.error('Erro ao buscar elementos da WBS', error);
-    res.status(500).json({ error: 'Erro ao buscar elementos da WBS' });
+    console.error('Erro ao buscar dados', error);
+    res.status(500).json({ error: 'Erro ao buscar dados' });
   }
 };

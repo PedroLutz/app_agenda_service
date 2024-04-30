@@ -1,7 +1,7 @@
 import connectToDatabase from '../../../lib/db';
-import TelefoneModel from '../../../models/Telefone';
+import CategoriaModel from '../../../models/Categoria';
 
-const { Telefone, TelefoneSchema } = TelefoneModel;
+const { Categoria, CategoriaSchema } = CategoriaModel;
 
 export default async (req, res) => {
   try {
@@ -11,10 +11,10 @@ export default async (req, res) => {
       const { id } = req.query;
 
       if (!id) {
-        return res.status(400).json({ error: 'O ID do telefone é obrigatório para a atualização.' });
+        return res.status(400).json({ error: 'O ID da categoria é obrigatório para a atualização.' });
       }
 
-      const propriedadesNomes = Object.keys(TelefoneSchema.paths);
+      const propriedadesNomes = Object.keys(CategoriaSchema.paths);
       const updateFields = {};
 
       for (const key in req.body) {
@@ -31,10 +31,10 @@ export default async (req, res) => {
         return res.status(400).json({ error: 'Pelo menos um campo deve ser fornecido para a atualização.' });
       }
 
-      const updatedData = await Telefone.findByIdAndUpdate(id, updateFields, { new: true });
+      const updatedData = await Categoria.findByIdAndUpdate(id, updateFields, { new: true });
 
       if (!updatedData) {
-        return res.status(404).json({ error: 'Telefone não encontrado.' });
+        return res.status(404).json({ error: 'Categoria não encontrada.' });
       }
 
       return res.status(200).json(updatedData);
@@ -42,7 +42,7 @@ export default async (req, res) => {
       res.status(405).json({ error: 'Método não permitido' });
     }
   } catch (error) {
-    console.error('Erro ao atualizar o telefone', error);
-    res.status(500).json({ error: 'Erro ao atualizar o telefone' });
+    console.error('Erro ao atualizar a categoria', error);
+    res.status(500).json({ error: 'Erro ao atualizar a categoria' });
   }
 };
